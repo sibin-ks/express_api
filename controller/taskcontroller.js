@@ -26,4 +26,5 @@ const deleteone=(req,res)=>{
     res.json("delete")
 }
 
+
 module.exports={getall,addone,updateone,deleteone}
