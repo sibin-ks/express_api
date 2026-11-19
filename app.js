@@ -1,6 +1,7 @@
 const express=require("express")
 const app=express()
 require("dotenv").config()
+const cookieParser = require("cookie-parser");
 const port=process.env.PORT
 
 app.use(express.json())
@@ -11,6 +12,7 @@ const errorHandler=require("./middleware/ErrorHandler")
 const connect=require("./config")
 
 connect()
+app.use(cookieParser());
 
 app.use("/api/task",taskrouter)
 app.use("/auth" , userrouter)-
