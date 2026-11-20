@@ -1,20 +1,30 @@
+const book=require("../models/bookmodel")
 const getall=((req,res)=>{
-const data=[{task:"cleaning",description:"cleaning",status:"pending"},
-            {task:"study",description:"study",status:"pending"}]
+
+const data=
     res.json({data})
 })
+const getone=((req,res)=>{
 
-const addone=((req,res)=>{
-    let {task,description,status}=req.body
-    if(!task||!description||!status)
+const data=
+    res.json({data})
+})
+const addone=(async (req,res)=>{
+    let {bookname,bookprice,stock}=req.body
+    let image=(`uploads/book/${req.file.filename}`)
+    if(!bookname||!bookprice||!stock||!req.file)
     {
-        res.json(error)
+   const error=new Error("All fields are require")
+   error.statuscode=400
+   throw error
     }
-    const data={
-        task:task,
-        description:description,
-        status:status}
-        res.json({data})
+    const data=await book.create({
+        bookname:bookname,
+        bookprice:bookprice,
+        stock:stock,
+        image:image})
+        res.status(201).json({data})
+    
 })
 
 const updateone=(req,res)=>
@@ -27,4 +37,4 @@ const deleteone=(req,res)=>{
 }
 
 
-module.exports={getall,addone,updateone,deleteone}
+module.exports={getall,addone,updateone,deleteone,getone}
